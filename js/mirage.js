@@ -774,3 +774,253 @@ resize();
 hist=[[]]; hi=0; syncHist();
 commit(false);
 })();
+
+/* ==============================================================
+   MIRAGE — local persistence + live design.md
+   Paste this block just BEFORE the closing `})();` in
+   mirage (2).html, so it shares scope with `boxes`, `COLS`,
+   `theme`, `devW`, `commit`, `$`, etc.
+   ============================================================== */
+
+/* ---------------------------------------------------------------
+   1) LOCAL PERSISTENCE (IndexedDB) — "save like OpenCut"
+   OpenCut keeps every project in IndexedDB so a reload (or losing
+   the tab) never loses work. Same pattern here: every commit()
+   is mirrored into IndexedDB in the background, and on load we
+   silently restore the last sketch. The existing Save/Load modal
+   (Sketch JSON) is untouched — that stays as the manual
+   export/import path; this is the automatic one.
+   --------------------------------------------------------------- */
+
+const DB_NAME = 'mirage';
+const DB_VERSION = 1;
+const STORE_SKETCHES = 'sketches'; // autosave + named projects
+const STORE_META = 'meta';         // misc, e.g. the design.md file handle
+
+function openDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = () => {
+      const db = req.result;
+      if (!db.objectStoreNames.contains(STORE_SKETCHES)) {
+        db.createObjectStore(STORE_SKETCHES, { keyPath: 'id' });
+      }
+      if (!db.objectStoreNames.contains(STORE_META)) {
+        db.createObjectStore(STORE_META, { keyPath: 'key' });
+      }
+    };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function idbPut(store, value) {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(store, 'readwrite');
+    tx.objectStore(store).put(value);
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+  });
+}
+
+async function idbGet(store, key) {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(store, 'readonly');
+    const req = tx.objectStore(store).get(key);
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function idbAll(store) {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(store, 'readonly');
+    const req = tx.objectStore(store).getAll();
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+// ---- autosave the working sketch ----
+const AUTOSAVE_ID = 'current';
+let autosaveTimer = null;
+
+function scheduleAutosave() {
+  clearTimeout(autosaveTimer);
+  // debounce: dragging a box fires commit() a lot, we don't want to
+  // hit IndexedDB on every pixel of movement
+  autosaveTimer = setTimeout(async () => {
+    await idbPut(STORE_SKETCHES, {
+      id: AUTOSAVE_ID,
+      cols: COLS,
+      theme,
+      devW,
+      boxes,
+      updatedAt: Date.now(),
+    });
+  }, 400);
+}
+
+async function restoreAutosave() {
+  const saved = await idbGet(STORE_SKETCHES, AUTOSAVE_ID);
+  if (!saved) return false;
+  boxes = saved.boxes || [];
+  COLS = saved.cols || 12;
+  theme = saved.theme || '';
+  devW = saved.devW || 0;
+  return true;
+}
+
+// ---- optional: named multi-project support (like OpenCut's project list) ----
+async function saveNamedProject(name) {
+  await idbPut(STORE_SKETCHES, {
+    id: 'project:' + name,
+    name,
+    cols: COLS,
+    theme,
+    devW,
+    boxes,
+    updatedAt: Date.now(),
+  });
+}
+
+async function listProjects() {
+  const all = await idbAll(STORE_SKETCHES);
+  return all.filter(s => s.id.startsWith('project:'));
+}
+
+async function loadNamedProject(name) {
+  return idbGet(STORE_SKETCHES, 'project:' + name);
+}
+
+/* ---------------------------------------------------------------
+   HOOK-IN POINTS for section 1 (edit these two spots in the file):
+
+   a) Inside `function commit(record){ ... }` add:
+        scheduleAutosave();
+
+   b) At the very end of the IIFE (after all the const/function
+      declarations, where the app currently boots), replace the
+      startup with:
+
+        (async () => {
+          const restored = await restoreAutosave();
+          if (restored) toast('Restored your last sketch');
+          commit(false);
+          push(); // seed undo history with the restored state
+        })();
+
+   That's it — no UI changes needed, it just works in the background.
+   --------------------------------------------------------------- */
+
+
+/* ---------------------------------------------------------------
+   2) LIVE design.md — "actively save the imported theme"
+   Whenever the active theme changes (user picks one from the
+   Theme segmented control, OR a Sketch JSON is imported that
+   carries a `theme` field), rewrite design.md with that theme's
+   tokens. Uses the File System Access API to write to a real file
+   on disk without re-downloading each time; falls back to a
+   download for browsers that don't support it (Firefox, Safari).
+   --------------------------------------------------------------- */
+
+const THEME_TOKENS = {
+  '':         { name: 'Plain',     bg: '#FBFCFD', fg: '#141C22', mut: '#5A6873', line: '#E4E9ED', acc: '#1F5F8B', radius: '2px',  font: 'Archivo' },
+  editorial:  { name: 'Editorial', bg: '#FCFBF7', fg: '#1A1714', mut: '#6B635A', line: '#E6E1D6', acc: '#8A5A2B', radius: '0px',  font: 'Instrument Serif' },
+  brutal:     { name: 'Brutal',    bg: '#F2F0EA', fg: '#0B0B0B', mut: '#3A3A3A', line: '#0B0B0B', acc: '#0B0B0B', radius: '0px',  font: 'Archivo' },
+  soft:       { name: 'Soft',      bg: '#FAFAFC', fg: '#1B1E2B', mut: '#6E7488', line: '#EBECF2', acc: '#5B5BD6', radius: '12px', font: 'Archivo' },
+  terminal:   { name: 'Terminal',  bg: '#0D1117', fg: '#D6DEE4', mut: '#7C8B96', line: '#1E262E', acc: '#4FE0B0', radius: '0px',  font: 'IBM Plex Mono' },
+};
+
+function themeToMarkdown(themeKey) {
+  const t = THEME_TOKENS[themeKey] || THEME_TOKENS[''];
+  return [
+    '# Design tokens',
+    '',
+    '_Auto-generated by Mirage — rewritten whenever the theme changes._',
+    '',
+    '- **Theme:** ' + t.name,
+    '- **Updated:** ' + new Date().toISOString(),
+    '',
+    '| Token | Value |',
+    '|---|---|',
+    '| Background | `' + t.bg + '` |',
+    '| Foreground | `' + t.fg + '` |',
+    '| Muted | `' + t.mut + '` |',
+    '| Line / border | `' + t.line + '` |',
+    '| Accent | `' + t.acc + '` |',
+    '| Radius | `' + t.radius + '` |',
+    '| Font | `' + t.font + '` |',
+    '',
+  ].join('\n');
+}
+
+// A File System Access handle can be structured-cloned, so we can
+// stash it in IndexedDB and reuse it across reloads (permission
+// still has to be re-granted by the browser on some visits).
+let designFileHandle = null;
+
+async function pickDesignFile() {
+  if (!('showSaveFilePicker' in window)) return null;
+  designFileHandle = await window.showSaveFilePicker({
+    suggestedName: 'design.md',
+    types: [{ description: 'Markdown', accept: { 'text/markdown': ['.md'] } }],
+  });
+  await idbPut(STORE_META, { key: 'designFileHandle', handle: designFileHandle });
+  return designFileHandle;
+}
+
+async function restoreDesignFileHandle() {
+  const rec = await idbGet(STORE_META, 'designFileHandle');
+  if (!rec) return null;
+  const perm = await rec.handle.queryPermission({ mode: 'readwrite' });
+  if (perm === 'granted') { designFileHandle = rec.handle; return rec.handle; }
+  return null; // needs a fresh pickDesignFile() click — browsers require a user gesture
+}
+
+async function writeDesignFile(themeKey) {
+  const md = themeToMarkdown(themeKey);
+  if (designFileHandle) {
+    const writable = await designFileHandle.createWritable();
+    await writable.write(md);
+    await writable.close();
+    return true;
+  }
+  // fallback: trigger a download instead of a silent on-disk rewrite
+  const blob = new Blob([md], { type: 'text/markdown' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'design.md';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  return false;
+}
+
+/* ---------------------------------------------------------------
+   HOOK-IN POINTS for section 2:
+
+   a) Add one button to the header (near #bSave), e.g.:
+        <button class="t" id="bDesignFile">Connect design.md</button>
+      wired to:
+        $('bDesignFile').onclick = () => pickDesignFile().then(() => writeDesignFile(theme));
+      (File System Access requires a real user click to grant
+      access the first time — that's what this button is for.)
+
+   b) In the theme segmented-control handler (wherever `theme = b.dataset.th`
+      is set, inside the #segTheme click listener), add:
+        writeDesignFile(theme);
+
+   c) In the "Load sketch" flow (bLoadGo handler, where the pasted
+      Sketch JSON is parsed and applied — it already carries a
+      `theme` field per exJSON()), add the same call right after
+      `theme` is assigned from the imported JSON:
+        writeDesignFile(theme);
+
+   d) On boot, try to silently reconnect the file handle:
+        restoreDesignFileHandle();
+      If it returns null, design.md changes fall back to downloads
+      until the user clicks "Connect design.md" again.
+   --------------------------------------------------------------- */
