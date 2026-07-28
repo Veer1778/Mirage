@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mirage — draw the page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/mirage.css">
+</head>
+<body>
+<div id="app">
+
+<header>
+  <div class="mk"><h1>Mirage</h1><span class="v">v0.2</span></div>
+  <div class="bar">
+    <button class="t" id="bUndo">Undo</button>
+    <button class="t" id="bRedo">Redo</button>
+    <span class="sep"></span>
+    <button class="t" id="bTidy">Tidy</button>
+    <button class="t" id="bClear">Clear</button>
+    <span class="sep"></span>
+    <button class="t on" id="bLabels">Labels</button>
+    <button class="t" id="bDark">Invert</button>
+    <span class="sep"></span>
+    <div class="seg" id="segCols">
+      <button data-cols="8">8</button><button data-cols="12" class="on">12</button><button data-cols="16">16</button>
+    </div>
+  </div>
+  <div class="bar right">
+    <button class="t" id="bKeys">Shortcuts</button>
+    <button class="t bx" id="bSave">Save</button>
+    <button class="t bx" id="bLoad">Load</button>
+    <button class="t pri" id="bExport">Export code</button>
+  </div>
+</header>
+
+<main>
+  <aside id="rail">
+    <div class="pane on" id="paneLayers">
+      <div class="rh">Structure</div>
+      <div class="rs" id="layers"><div class="none">Nothing drawn yet. Drag a box on the surface.</div></div>
+    </div>
+
+    <div class="pane" id="paneInsp">
+      <div class="rh" id="inspHead">Box</div>
+      <div class="rs">
+        <div class="fld">
+          <label>Reads as</label>
+          <div class="conf" style="margin-bottom:8px">
+            <span id="cfLab">auto</span>
+            <span class="met"><i id="cfBar"></i></span>
+            <span id="cfPct">0%</span>
+          </div>
+          <div class="types" id="typeGrid"></div>
+        </div>
+        <div class="fld">
+          <label>Span</label>
+          <div class="rng"><input type="range" id="fSpan" min="1" max="12" step="1"><span class="v" id="fSpanV">12</span></div>
+        </div>
+        <div class="fld">
+          <label>Height</label>
+          <div class="rng"><input type="range" id="fH" min="3" max="60" step="1"><span class="v" id="fHV">10</span></div>
+        </div>
+        <div class="fld">
+          <label>Offset from left</label>
+          <div class="rng"><input type="range" id="fX" min="0" max="11" step="1"><span class="v" id="fXV">0</span></div>
+        </div>
+        <div class="fld" id="fldCells" style="display:none">
+          <label>Columns in this row</label>
+          <div class="rng"><input type="range" id="fCells" min="2" max="6" step="1"><span class="v" id="fCellsV">3</span></div>
+        </div>
+        <div class="fld">
+          <label>Heading</label>
+          <textarea class="txt" id="fHead" rows="2" placeholder="blank uses the default"></textarea>
+        </div>
+        <div class="fld">
+          <label>Body copy</label>
+          <textarea class="txt" id="fBody" rows="4" placeholder="blank uses the default"></textarea>
+        </div>
+      </div>
+      <div class="rowbtn">
+        <button id="bAuto">Re-read</button>
+        <button id="bDupe">Duplicate</button>
+        <button class="dg" id="bDel">Delete</button>
+      </div>
+    </div>
+
+    <div class="stats">
+      boxes <b id="stBox">0</b><br>
+      components <b id="stComp">0</b><br>
+      set by hand <b id="stLock">0</b><br>
+      est. markup <b id="stLines">0 ln</b>
+    </div>
+  </aside>
+
+  <section id="draft">
+    <canvas id="sk"></canvas>
+    <div class="ov" id="ovTL">Drafting surface — <span id="ovCols">12</span> col</div>
+    <div class="ov" id="ovBL">
+      <span><b>drag</b> empty space to draw</span>
+      <span><b>drag</b> a box to move</span>
+      <span><b>handles</b> to resize</span>
+      <span><b>right-click</b> to delete</span>
+    </div>
+    <div class="blank" id="blank">
+      <div class="sm">Nothing drawn yet</div>
+      <div class="bg">Drag a box. Get a component.</div>
+      <div class="ps">
+        <button class="t bx" data-preset="landing">Landing page</button>
+        <button class="t bx" data-preset="docs">Docs</button>
+        <button class="t bx" data-preset="dash">Dashboard</button>
+        <button class="t bx" data-preset="post">Article</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="out">
+    <div class="obar">
+      <span class="lb">Preview</span>
+      <div class="seg" id="segDev">
+        <button data-w="0" class="on">Full</button><button data-w="820">Tablet</button><button data-w="390">Phone</button>
+      </div>
+      <span class="lb" style="margin-left:4px">Theme</span>
+      <div class="seg" id="segTheme">
+        <button data-th="" class="on">Plain</button>
+        <button data-th="editorial">Editorial</button>
+        <button data-th="brutal">Brutal</button>
+        <button data-th="soft">Soft</button>
+        <button data-th="terminal">Term</button>
+      </div>
+    </div>
+    <div id="frame">
+      <div id="sheet">
+        <div class="void">
+          <div class="t1">The page renders here</div>
+          <div class="t2">Every box is read for position, width and proportion, then built as a real component.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span>Mirage — an open source frontend builder</span>
+  <span class="sp"></span>
+  <span id="ftSel">no selection</span>
+  <span>·</span>
+  <span>MIT</span>
+</footer>
+</div>
+
+<div class="modal" id="mExport">
+  <div class="mbox">
+    <div class="mh">
+      <span class="ti">Export</span>
+      <div class="seg" id="segFmt">
+        <button data-f="html" class="on">HTML + CSS</button>
+        <button data-f="react">React</button>
+        <button data-f="tw">Tailwind</button>
+        <button data-f="json">Sketch JSON</button>
+      </div>
+      <button class="x" id="xExport">×</button>
+    </div>
+    <div class="mb"><pre id="codeOut"></pre></div>
+    <div class="mf">
+      <span class="nt" id="exNote"></span>
+      <button class="t bx" id="bCopy">Copy</button>
+      <button class="t pri" id="bDownload">Download file</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="mKeys">
+  <div class="mbox" style="width:min(560px,100%)">
+    <div class="mh"><span class="ti">Shortcuts</span><button class="x" id="xKeys">×</button></div>
+    <div class="mb"><div class="keys" id="keyList"></div></div>
+  </div>
+</div>
+
+<div class="modal" id="mLoad">
+  <div class="mbox" style="width:min(560px,100%)">
+    <div class="mh"><span class="ti">Load sketch</span><button class="x" id="xLoad">×</button></div>
+    <div class="mb" style="padding:16px"><textarea class="txt" id="loadBox" rows="12" placeholder="Paste sketch JSON here"></textarea></div>
+    <div class="mf"><span class="nt">Produced by Export → Sketch JSON</span><button class="t pri" id="bLoadGo">Load</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+
+  <script src="../js/mirage.js" defer></script>
+</body>
+</html>
