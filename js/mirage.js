@@ -531,6 +531,7 @@ function commit(record){
   $('blank').classList.toggle('gone', boxes.length>0);
   paint(); render(); syncSel(); syncStats();
   if($('mExport').classList.contains('on')) refreshExport();
+  scheduleAutosave();
 }
 
 function syncLayers(){
@@ -895,6 +896,13 @@ async function listProjects() {
 async function loadNamedProject(name) {
   return idbGet(STORE_SKETCHES, 'project:' + name);
 }
+
+(async () => {
+  const restored = await restoreAutosave();
+  if (restored) toast('Restored your last sketch');
+  commit(false);
+  push();
+})();
 
 /* ---------------------------------------------------------------
    HOOK-IN POINTS for section 1 (edit these two spots in the file):
