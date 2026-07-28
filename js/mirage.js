@@ -731,7 +731,7 @@ $('bLoadGo').onclick=()=>{
     if(!d || !Array.isArray(d.boxes)) throw new Error('bad');
     boxes=d.boxes; COLS=d.cols||12; theme=d.theme||'';
     Array.prototype.forEach.call($('segCols').children,x=>x.classList.toggle('on',+x.dataset.cols===COLS));
-    Array.prototype.forEach.call($('segTheme').children,x=>x.classList.toggle('on',x.dataset.th===theme));
+    $("themeSel").value = theme;
     $('ovCols').textContent=COLS;
     sel=-1; $('mLoad').classList.remove('on'); commit(true); toast('Sketch loaded');
   }catch(_){ toast('That is not a Mirage sketch'); }
