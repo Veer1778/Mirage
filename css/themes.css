@@ -1,0 +1,314 @@
+/* =====================================================================
+   designprompts.dev — 30 style tokens for Mirage
+   Each block overrides these variables on #sheet:
+     --c-bg   --c-fg   --c-mut   --c-line   --c-acc
+     --c-r    --c-pad  --c-bw    --c-sh     --c-tt
+     --c-fd   --c-fb
+   The component CSS in mirage.css consumes them; nothing else changes.
+   ===================================================================== */
+
+/* -------------------------------- LIGHT + SERIF -------------------------------- */
+
+#sheet.th-monochrome{
+  --c-bg:#FFFFFF; --c-fg:#000000; --c-mut:#3A3A3A; --c-line:#000000; --c-acc:#000000;
+  --c-r:0px; --c-bw:1px; --c-sh:none; --c-tt:-.045em;
+  --c-fd:"Playfair Display","Didot","Bodoni 72",Georgia,serif;
+  --c-fb:Georgia,"Times New Roman",serif;
+}
+#sheet.th-newsprint{
+  --c-bg:#F4EFE4; --c-fg:#161310; --c-mut:#5A5147; --c-line:#161310; --c-acc:#8A1E1E;
+  --c-r:0px; --c-bw:1px; --c-sh:none; --c-tt:-.02em;
+  --c-fd:"Playfair Display",Georgia,serif;
+  --c-fb:"Source Serif Pro",Georgia,serif;
+}
+#sheet.th-luxury{
+  --c-bg:#F5F1EA; --c-fg:#1A1611; --c-mut:#6C5F4A; --c-line:#D9CDB4; --c-acc:#8A6D3B;
+  --c-r:0px; --c-bw:1px; --c-sh:none; --c-tt:-.015em;
+  --c-fd:"Cormorant Garamond","Playfair Display",Georgia,serif;
+  --c-fb:"Cormorant Garamond",Georgia,serif;
+}
+#sheet.th-academia{
+  --c-bg:#F1EAD8; --c-fg:#2B1F14; --c-mut:#6B5942; --c-line:#C8B994; --c-acc:#5B2A1E;
+  --c-r:0px; --c-bw:1px; --c-sh:none; --c-tt:-.01em;
+  --c-fd:"EB Garamond","Crimson Pro",Georgia,serif;
+  --c-fb:"EB Garamond",Georgia,serif;
+}
+#sheet.th-botanical{
+  --c-bg:#F1EFE6; --c-fg:#2A2E23; --c-mut:#5F6B54; --c-line:#CFD1BE; --c-acc:#4C6B3D;
+  --c-r:4px; --c-bw:1px; --c-sh:none; --c-tt:-.02em;
+  --c-fd:"Fraunces","Playfair Display",Georgia,serif;
+  --c-fb:"Fraunces",Georgia,serif;
+}
+#sheet.th-organic{
+  --c-bg:#F6F1EA; --c-fg:#2C221A; --c-mut:#6D604F; --c-line:#E1D6C4; --c-acc:#B76E3D;
+  --c-r:22px; --c-bw:1px; --c-sh:none; --c-tt:-.02em;
+  --c-fd:"Fraunces",Georgia,serif;
+  --c-fb:"Fraunces",Georgia,serif;
+}
+
+/* -------------------------------- LIGHT + SANS -------------------------------- */
+
+#sheet.th-bauhaus{
+  --c-bg:#F2ECDA; --c-fg:#111111; --c-mut:#4A4A4A; --c-line:#111111; --c-acc:#D3212C;
+  --c-r:0px; --c-bw:2px; --c-sh:none; --c-tt:-.03em;
+  --c-fd:"Archivo Black","Space Grotesk",system-ui,sans-serif;
+  --c-fb:"Inter",system-ui,sans-serif;
+}
+#sheet.th-saas{
+  --c-bg:#FFFFFF; --c-fg:#0F1730; --c-mut:#6B7488; --c-line:#EDEFF5; --c-acc:#4F46E5;
+  --c-r:8px; --c-pad:30px; --c-sh:0 1px 2px rgba(15,23,48,.06); --c-tt:-.025em;
+  --c-fd:"Inter",system-ui,sans-serif;
+  --c-fb:"Inter",system-ui,sans-serif;
+}
+#sheet.th-swiss-minimalist{
+  --c-bg:#FFFFFF; --c-fg:#000000; --c-mut:#4A4A4A; --c-line:#000000; --c-acc:#E30613;
+  --c-r:0px; --c-bw:1px; --c-sh:none; --c-tt:-.015em;
+  --c-fd:"Helvetica Neue","Inter",Helvetica,Arial,sans-serif;
+  --c-fb:"Helvetica Neue","Inter",Helvetica,Arial,sans-serif;
+}
+#sheet.th-flat-design{
+  --c-bg:#F5F7FA; --c-fg:#2D3E50; --c-mut:#7F8C8D; --c-line:#DFE6E9; --c-acc:#E74C3C;
+  --c-r:4px; --c-bw:0px; --c-sh:none; --c-tt:-.02em;
+  --c-fd:"Inter",system-ui,sans-serif;
+  --c-fb:"Inter",system-ui,sans-serif;
+}
+#sheet.th-material-design{
+  --c-bg:#FAFAFA; --c-fg:#212121; --c-mut:#616161; --c-line:#E0E0E0; --c-acc:#1976D2;
+  --c-r:4px; --c-pad:24px; --c-sh:0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24); --c-tt:-.02em;
+  --c-fd:"Roboto","Inter",system-ui,sans-serif;
+  --c-fb:"Roboto","Inter",system-ui,sans-serif;
+}
+#sheet.th-neo-brutalism{
+  --c-bg:#F5F0E5; --c-fg:#0B0B0B; --c-mut:#3A3A3A; --c-line:#0B0B0B; --c-acc:#FF5A1F;
+  --c-r:0px; --c-bw:2.5px; --c-sh:6px 6px 0 #0B0B0B; --c-tt:-.045em;
+  --c-fd:"Space Grotesk","Archivo Black",system-ui,sans-serif;
+  --c-fb:"Space Grotesk",system-ui,sans-serif;
+}
+#sheet.th-playful-geometric{
+  --c-bg:#FFF5E7; --c-fg:#2A1E4A; --c-mut:#6E5A94; --c-line:#F4C6D0; --c-acc:#F76C6C;
+  --c-r:18px; --c-pad:28px; --c-sh:0 2px 0 #E9A0B0; --c-tt:-.03em;
+  --c-fd:"Space Grotesk",system-ui,sans-serif;
+  --c-fb:"Space Grotesk",system-ui,sans-serif;
+}
+#sheet.th-claymorphism{
+  --c-bg:#E8E4F5; --c-fg:#2F2A5B; --c-mut:#6E68A0; --c-line:#D6D0EB; --c-acc:#7F6BD6;
+  --c-r:22px; --c-pad:28px;
+  --c-sh:-6px -6px 12px #FFFFFF, 6px 6px 14px #C8C1E4;
+  --c-tt:-.02em;
+  --c-fd:"Nunito","Inter",system-ui,sans-serif;
+  --c-fb:"Nunito","Inter",system-ui,sans-serif;
+}
+#sheet.th-professional{
+  --c-bg:#FFFFFF; --c-fg:#1B2733; --c-mut:#5F6C7B; --c-line:#E4E9EE; --c-acc:#0B5FFF;
+  --c-r:3px; --c-bw:1px; --c-sh:none; --c-tt:-.02em;
+  --c-fd:"Inter",system-ui,sans-serif;
+  --c-fb:"Inter",system-ui,sans-serif;
+}
+#sheet.th-enterprise{
+  --c-bg:#F8F9FB; --c-fg:#0F1419; --c-mut:#5B6572; --c-line:#DDE2E8; --c-acc:#0057B7;
+  --c-r:2px; --c-pad:22px; --c-bw:1px; --c-sh:none; --c-tt:-.015em;
+  --c-fd:"IBM Plex Sans","Inter",system-ui,sans-serif;
+  --c-fb:"IBM Plex Sans","Inter",system-ui,sans-serif;
+}
+#sheet.th-sketch{
+  --c-bg:#FCFAF3; --c-fg:#1F1B14; --c-mut:#6B6350; --c-line:#1F1B14; --c-acc:#D66D3C;
+  --c-r:6px; --c-bw:1.5px; --c-sh:2px 2px 0 rgba(31,27,20,.35); --c-tt:-.02em;
+  --c-fd:"Caveat","Kalam",cursive;
+  --c-fb:"Kalam","Comic Neue",cursive;
+}
+#sheet.th-industrial{
+  --c-bg:#DFDCD5; --c-fg:#1A1A1A; --c-mut:#4A4744; --c-line:#3A3735; --c-acc:#C24A2C;
+  --c-r:0px; --c-bw:1px; --c-sh:none; --c-tt:-.02em;
+  --c-fd:"Oswald","Bebas Neue","Archivo",sans-serif;
+  --c-fb:"Inter",system-ui,sans-serif;
+}
+#sheet.th-neumorphism{
+  --c-bg:#E4E9EF; --c-fg:#2A3140; --c-mut:#5F6B7C; --c-line:#D4DAE2; --c-acc:#4F7BE8;
+  --c-r:18px; --c-pad:28px;
+  --c-sh:-5px -5px 10px #FFFFFF, 5px 5px 12px #B8BFC9;
+  --c-tt:-.02em;
+  --c-fd:"Inter",system-ui,sans-serif;
+  --c-fb:"Inter",system-ui,sans-serif;
+}
+#sheet.th-maximalism{
+  --c-bg:#FFF3D6; --c-fg:#1A1A1A; --c-mut:#4A2A5A; --c-line:#1A1A1A; --c-acc:#E5197A;
+  --c-r:8px; --c-bw:2px;
+  --c-sh:4px 4px 0 #00A6A6, -4px -4px 0 #FFB800;
+  --c-tt:-.04em;
+  --c-fd:"Space Grotesk","Archivo Black",sans-serif;
+  --c-fb:"Space Grotesk",system-ui,sans-serif;
+}
+#sheet.th-retro{
+  --c-bg:#F0E5C9; --c-fg:#1E1810; --c-mut:#6A5C41; --c-line:#C9B98A; --c-acc:#B5471E;
+  --c-r:0px; --c-bw:2px; --c-sh:3px 3px 0 #1E1810; --c-tt:-.025em;
+  --c-fd:"VT323","IBM Plex Mono",monospace;
+  --c-fb:"Space Mono","IBM Plex Mono",monospace;
+}
+
+/* -------------------------------- DARK + SANS -------------------------------- */
+
+#sheet.th-modern-dark{
+  --c-bg:#0B0B0F; --c-fg:#F4F5F7; --c-mut:#8A8F9A; --c-line:#1E2028; --c-acc:#7C5CFF;
+  --c-r:8px; --c-pad:28px; --c-bw:1px; --c-sh:none; --c-tt:-.025em;
+  --c-fd:"Inter",system-ui,sans-serif;
+  --c-fb:"Inter",system-ui,sans-serif;
+}
+#sheet.th-kinetic{
+  --c-bg:#000000; --c-fg:#FFFFFF; --c-mut:#A0A0A0; --c-line:#1A1A1A; --c-acc:#00E5A0;
+  --c-r:0px; --c-bw:1px; --c-sh:none; --c-tt:-.06em;
+  --c-fd:"Space Grotesk","Archivo Black",sans-serif;
+  --c-fb:"Space Grotesk",system-ui,sans-serif;
+}
+#sheet.th-bold-typography{
+  --c-bg:#0A0A0A; --c-fg:#F5F5F0; --c-mut:#9C9C95; --c-line:#1A1A1A; --c-acc:#F5F5F0;
+  --c-r:0px; --c-bw:0px; --c-sh:none; --c-tt:-.055em;
+  --c-fd:"Archivo Black","Space Grotesk",sans-serif;
+  --c-fb:"Space Grotesk",system-ui,sans-serif;
+}
+#sheet.th-web3{
+  --c-bg:#0A0715; --c-fg:#EFEBFF; --c-mut:#8479B0; --c-line:#1F1735; --c-acc:#B67AFF;
+  --c-r:12px; --c-pad:28px;
+  --c-sh:0 0 24px rgba(182,122,255,.18);
+  --c-tt:-.03em;
+  --c-fd:"Space Grotesk","Inter",sans-serif;
+  --c-fb:"Inter",system-ui,sans-serif;
+}
+#sheet.th-minimal-dark{
+  --c-bg:#0E0E10; --c-fg:#EDEEF0; --c-mut:#7A7C82; --c-line:#1F2124; --c-acc:#EDEEF0;
+  --c-r:2px; --c-pad:30px; --c-bw:1px; --c-sh:none; --c-tt:-.02em;
+  --c-fd:"Inter",system-ui,sans-serif;
+  --c-fb:"Inter",system-ui,sans-serif;
+}
+#sheet.th-vaporwave{
+  --c-bg:#1A0A2E; --c-fg:#FF71CE; --c-mut:#8B7BB8; --c-line:#3A1A5A; --c-acc:#01CDFE;
+  --c-r:0px; --c-bw:1px;
+  --c-sh:0 0 20px rgba(255,113,206,.35);
+  --c-tt:-.01em;
+  --c-fd:"VT323","Press Start 2P",monospace;
+  --c-fb:"Space Mono","IBM Plex Mono",monospace;
+}
+
+/* -------------------------------- DARK + SERIF -------------------------------- */
+
+#sheet.th-art-deco{
+  --c-bg:#141428; --c-fg:#D4AF37; --c-mut:#8A7A3A; --c-line:#D4AF37; --c-acc:#E94560;
+  --c-r:0px; --c-bw:1px; --c-sh:none; --c-tt:-.015em;
+  --c-fd:"Poiret One","Josefin Sans",serif;
+  --c-fb:"Cormorant Garamond","Lato",serif;
+}
+
+/* -------------------------------- DARK + MONO -------------------------------- */
+
+#sheet.th-terminal-dp{
+  --c-bg:#0D1117; --c-fg:#00FF66; --c-mut:#3A8A5A; --c-line:#1E262E; --c-acc:#FFCC00;
+  --c-r:0px; --c-bw:1px; --c-sh:none; --c-tt:-.005em;
+  --c-fd:"JetBrains Mono","Fira Code","IBM Plex Mono",monospace;
+  --c-fb:"JetBrains Mono","IBM Plex Mono",monospace;
+}
+#sheet.th-cyberpunk{
+  --c-bg:#0A0A0F; --c-fg:#FF00FF; --c-mut:#8A5A9F; --c-line:#2A0F3A; --c-acc:#00FFFF;
+  --c-r:0px; --c-bw:1px;
+  --c-sh:0 0 20px #FF00FF, 0 0 40px rgba(255,0,255,.35);
+  --c-tt:-.01em;
+  --c-fd:"Orbitron","Share Tech Mono",monospace;
+  --c-fb:"Roboto Mono","IBM Plex Mono",monospace;
+}
+
+/* =====================================================================
+   Style-specific accents that go beyond token overrides.
+   Kept scoped and small — every rule is deliberate.
+   ===================================================================== */
+
+/* Bauhaus: primary-color card accents */
+#sheet.th-bauhaus .c-card:nth-child(3n+1){background:#FFD500}
+#sheet.th-bauhaus .c-card:nth-child(3n+2){background:#0055A4;color:#F2ECDA}
+#sheet.th-bauhaus .c-card:nth-child(3n+2) .c-card p,
+#sheet.th-bauhaus .c-card:nth-child(3n+2) .c-card h4{color:#F2ECDA}
+#sheet.th-bauhaus .c-card:nth-child(3n+3){background:#D3212C;color:#F2ECDA}
+
+/* Newsprint: proper newsprint columns for text blocks */
+#sheet.th-newsprint .c-text p{column-count:2;column-gap:26px}
+#sheet.th-newsprint .c-hero h1{border-top:3px double var(--c-fg);border-bottom:1px solid var(--c-fg);padding:14px 0}
+
+/* Terminal (both variants): scanline overlay + prompt in nav */
+#sheet.th-terminal-dp,
+#sheet.th-terminal-dp .c-hero,
+#sheet.th-terminal-dp .c-text,
+#sheet.th-terminal-dp .c-grid{
+  background-image:linear-gradient(rgba(0,255,102,.04) 50%, transparent 50%);
+  background-size:100% 3px;
+}
+#sheet.th-terminal-dp .c-nav .lg::before{content:"$ ";color:var(--c-acc)}
+
+/* Cyberpunk: neon glow on headings */
+#sheet.th-cyberpunk .c-hero h1{
+  text-shadow:0 0 10px currentColor, 0 0 22px rgba(255,0,255,.5);
+}
+
+/* Art Deco: decorative rule under nav */
+#sheet.th-art-deco .c-nav{
+  border-bottom-width:3px;border-bottom-style:double;
+  box-shadow:inset 0 -8px 0 -6px var(--c-fg);
+}
+
+/* Vaporwave: horizon grid on hero */
+#sheet.th-vaporwave .c-hero{
+  background:
+    linear-gradient(180deg, transparent 60%, rgba(1,205,254,.15) 100%),
+    linear-gradient(90deg, transparent 49.6%, rgba(255,113,206,.35) 49.6%, rgba(255,113,206,.35) 50.4%, transparent 50.4%);
+}
+
+/* Sketch: hand-drawn dashed borders everywhere */
+#sheet.th-sketch .c-card,
+#sheet.th-sketch .c-img,
+#sheet.th-sketch .c-form .inp{
+  border-style:dashed;
+}
+
+/* Retro: chunky monitor bezel on images */
+#sheet.th-retro .c-img{background:#1E1810;color:#F0E5C9}
+
+/* Kinetic + Bold Typography: absurdly loud headings */
+#sheet.th-kinetic .c-hero h1,
+#sheet.th-bold-typography .c-hero h1{
+  font-size:clamp(42px,7vw,86px); font-weight:900; line-height:.88;
+}
+
+/* Web3: gradient accent on hero CTA */
+#sheet.th-web3 .c-hero .b1{
+  background:linear-gradient(90deg,#B67AFF 0%,#7A5CFF 100%);
+}
+
+/* Playful geometric: rounded card corners get more playful */
+#sheet.th-playful-geometric .c-card{border-radius:22px}
+#sheet.th-playful-geometric .c-card:nth-child(2n){background:#F4C6D0}
+
+/* Neumorphism + Claymorphism share soft-UI card look */
+#sheet.th-neumorphism .c-card,
+#sheet.th-claymorphism .c-card{border:none}
+
+/* Industrial: exposed-frame look with corner ticks */
+#sheet.th-industrial .c-card{
+  background-image:
+    linear-gradient(var(--c-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--c-line) 1px, transparent 1px);
+  background-size:calc(100% - 1px) 12px, 12px calc(100% - 1px);
+  background-position:0 0, 0 0;
+  background-repeat:no-repeat;
+}
+
+/* Maximalism: sprinkle color into stats + banner */
+#sheet.th-maximalism .c-stats{background:#00A6A6}
+#sheet.th-maximalism .c-banner{background:#7A2E8E}
+
+/* Monochrome + Swiss: extreme editorial hero sizing */
+#sheet.th-monochrome .c-hero h1,
+#sheet.th-swiss-minimalist .c-hero h1{
+  font-size:clamp(44px,8vw,96px); line-height:.9;
+}
+
+/* Reduce loud effects when user prefers reduced motion */
+@media (prefers-reduced-motion:reduce){
+  #sheet.th-cyberpunk .c-hero h1{text-shadow:none}
+  #sheet.th-web3{--c-sh:none}
+}
