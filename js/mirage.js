@@ -652,14 +652,18 @@ Array.prototype.forEach.call($('segCols').children, b=>{
 Array.prototype.forEach.call($('segDev').children, b=>{
   b.onclick=()=>{ Array.prototype.forEach.call($('segDev').children,x=>x.classList.remove('on')); b.classList.add('on'); devW=+b.dataset.w; render(); };
 });
-Array.prototype.forEach.call($('segTheme').children, b=>{
-  b.onclick=()=>{
-    Array.prototype.forEach.call($('segTheme').children,x=>x.classList.remove('on'));
-    b.classList.add('on'); theme=b.dataset.th; render();
-    if($('mExport').classList.contains('on')) refreshExport();
-  };
-});
+const themeSelect = $("themeSel");
 
+themeSelect.addEventListener("change", () => {
+    theme = themeSelect.value;
+
+    writeDesignFile(theme);
+
+    render();
+
+    if ($("mExport").classList.contains("on"))
+        refreshExport();
+});
 const PRESETS={
   landing:[{x:0,y:.02,w:1,h:.06},{x:0,y:.10,w:1,h:.24},
     {x:.04,y:.36,w:.28,h:.13},{x:.36,y:.36,w:.28,h:.13},{x:.68,y:.36,w:.28,h:.13},
