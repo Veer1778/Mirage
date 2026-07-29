@@ -21,7 +21,7 @@ document.querySelectorAll('.w > i').forEach((el,i)=>{ el.style.animationDelay = 
 const dots = document.getElementById('dots');
 const dots2 = document.getElementById('dots2');
 const win = document.getElementById('win');
-const curs = [document.getElementById('c1'),document.getElementById('c2'),document.getElementById('c3')];
+const curs = [document.getElementById('c1'),document.getElementById('c2'),document.getElementById('c3'),document.getElementById('c4')].filter(Boolean);
 let sy = 0, ticking = false;
 
 function onScroll(){
@@ -44,6 +44,7 @@ const PATHS = [
   [[6,132],[26,196],[62,150],[18,240],[6,132]],
   [[88,96],[70,210],[94,268],[60,120],[88,96]],
   [[46,300],[80,258],[24,318],[52,352],[46,300]],
+  [[72,344],[34,392],[86,300],[58,364],[72,344]],
 ];
 curs.forEach((c,i)=>{
   let k=0;
