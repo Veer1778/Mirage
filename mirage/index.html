@@ -264,7 +264,7 @@
     </div>
 
     <div class="md">
-      <div class="mdhead">design.md<button class="btn tiny" id="bAIDesign">Generate with AI</button></div>
+      <div class="mdhead">design.md</div>
       <pre id="designMd"></pre>
     </div>
   </div>
@@ -274,30 +274,6 @@
     <button class="btn" id="bDesignReset">Reset</button>
     <button class="btn solid" id="bDesignApply">Apply</button>
   </footer>
-</div></div>
-
-<!-- ===================== AI ===================== -->
-<div class="modal" id="mAI"><div class="box">
-  <header><h2>AI assist</h2><span class="tag">Gemini</span>
-    <button class="x" id="xAI" aria-label="Close">&times;</button></header>
-  <div class="body pad">
-    <section class="fld" id="keyBlock">
-      <label>Gemini API key</label>
-      <input class="text" id="aiKey" type="password" placeholder="Paste your key" autocomplete="off">
-      <p class="note">Stored only in this browser. Never committed, never sent anywhere except Google.</p>
-    </section>
-    <section class="fld">
-      <label>What is this page for?</label>
-      <textarea class="text" id="aiPrompt" rows="4" placeholder="A landing page for a small-batch coffee roastery in Faridabad. Warm, editorial, a bit premium."></textarea>
-    </section>
-    <section class="fld">
-      <label>What should it do</label>
-      <div class="chips" id="aiMode"></div>
-    </section>
-    <p class="note" id="aiStatus"></p>
-  </div>
-  <footer><span class="note">Uses the free tier of the Gemini API.</span>
-    <button class="btn solid" id="bAIRun">Run</button></footer>
 </div></div>
 
 <!-- ===================== shortcuts ===================== -->
