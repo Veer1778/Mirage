@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Caveat:wght@400;700&family=Cormorant+Garamond:wght@400;500;600;700&family=EB+Garamond:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&family=Kalam:wght@400;700&family=Nunito:wght@400;600;700;800&family=Orbitron:wght@400;500;700&family=Oswald:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&family=Poiret+One&family=Roboto:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Archivo+Black&family=VT323&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=Caveat:wght@400;700&family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Serif+Display&family=EB+Garamond:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Kalam:wght@400;700&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@400;600;700;900&family=Orbitron:wght@400;700;900&family=Oswald:wght@400;500;600;700&family=Playfair+Display:wght@400;500;700;800;900&family=Poiret+One&family=Roboto:wght@400;500;700;900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/mirage.css">
 <link rel="stylesheet" href="../css/themes.css">
 </head>
@@ -15,7 +15,13 @@
 <div id="app">
 
 <header>
-  <div class="mk"><h1>Mirage</h1><span class="v">v0.2</span></div>
+  <a class="mk" href="/" title="Back to the homepage">
+    <span class="hm" aria-hidden="true">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M8 2L3.5 6.5 8 11" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+    <h1>Mirage</h1><span class="v">v0.3</span>
+  </a>
+
   <div class="bar">
     <button class="t" id="bUndo">Undo</button>
     <button class="t" id="bRedo">Redo</button>
@@ -24,13 +30,16 @@
     <button class="t" id="bClear">Clear</button>
     <span class="sep"></span>
     <button class="t on" id="bLabels">Labels</button>
-    <button class="t" id="bDark">Invert</button>
     <span class="sep"></span>
     <div class="seg" id="segCols">
       <button data-cols="8">8</button><button data-cols="12" class="on">12</button><button data-cols="16">16</button>
     </div>
   </div>
+
   <div class="bar right">
+    <button class="t ico" id="bTheme" title="Toggle dark mode">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M12 8.4A5.2 5.2 0 015.6 2a5.4 5.4 0 100 12 5.4 5.4 0 006.4-5.6z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>
+    </button>
     <button class="t" id="bKeys">Shortcuts</button>
     <button class="t bx" id="bSave">Save</button>
     <button class="t bx" id="bLoad">Load</button>
@@ -50,7 +59,7 @@
       <div class="rs">
         <div class="fld">
           <label>Reads as</label>
-          <div class="conf" style="margin-bottom:8px">
+          <div class="conf">
             <span id="cfLab">auto</span>
             <span class="met"><i id="cfBar"></i></span>
             <span id="cfPct">0%</span>
@@ -58,28 +67,26 @@
           <div class="types" id="typeGrid"></div>
         </div>
         <div class="fld">
-          <label>Span</label>
-          <div class="rng"><input type="range" id="fSpan" min="1" max="12" step="1"><span class="v" id="fSpanV">12</span></div>
+          <label>Geometry</label>
+          <div class="grid2">
+            <div class="num"><span>X</span><input type="number" id="fX" min="0" step="1"></div>
+            <div class="num"><span>Y</span><input type="number" id="fY" min="0" step="1"></div>
+            <div class="num"><span>W</span><input type="number" id="fW" min="1" step="1"></div>
+            <div class="num"><span>H</span><input type="number" id="fH" min="1" step="1"></div>
+          </div>
         </div>
-        <div class="fld">
-          <label>Height</label>
-          <div class="rng"><input type="range" id="fH" min="3" max="60" step="1"><span class="v" id="fHV">10</span></div>
-        </div>
-        <div class="fld">
-          <label>Offset from left</label>
-          <div class="rng"><input type="range" id="fX" min="0" max="11" step="1"><span class="v" id="fXV">0</span></div>
-        </div>
-        <div class="fld" id="fldCells" style="display:none">
-          <label>Columns in this row</label>
+        <div class="fld" id="fldCells" hidden>
+          <label>Columns inside</label>
           <div class="rng"><input type="range" id="fCells" min="2" max="6" step="1"><span class="v" id="fCellsV">3</span></div>
         </div>
         <div class="fld">
-          <label>Heading</label>
-          <textarea class="txt" id="fHead" rows="2" placeholder="blank uses the default"></textarea>
+          <label for="fHead">Heading</label>
+          <textarea class="txt" id="fHead" rows="2" placeholder="Leave blank for the default"></textarea>
         </div>
         <div class="fld">
-          <label>Body copy</label>
-          <textarea class="txt" id="fBody" rows="4" placeholder="blank uses the default"></textarea>
+          <label for="fBody">Body copy</label>
+          <textarea class="txt" id="fBody" rows="5" placeholder="Leave blank for the default"></textarea>
+          <p class="hint">Commas become separate items for nav and side nav.</p>
         </div>
       </div>
       <div class="rowbtn">
@@ -90,30 +97,32 @@
     </div>
 
     <div class="stats">
-      boxes <b id="stBox">0</b><br>
-      components <b id="stComp">0</b><br>
-      set by hand <b id="stLock">0</b><br>
-      est. markup <b id="stLines">0 ln</b>
+      <span>boxes</span><b id="stBox">0</b>
+      <span>components</span><b id="stComp">0</b>
+      <span>rows</span><b id="stRows">0</b>
+      <span>set by hand</span><b id="stLock">0</b>
     </div>
   </aside>
 
   <section id="draft">
-    <canvas id="sk"></canvas>
-    <div class="ov" id="ovTL">Drafting surface — <span id="ovCols">12</span> col</div>
+    <div class="ov" id="ovTL">Surface — <span id="ovCols">12</span> col · square grid</div>
+    <div id="scroll">
+      <canvas id="sk"></canvas>
+    </div>
     <div class="ov" id="ovBL">
-      <span><b>drag</b> empty space to draw</span>
-      <span><b>drag</b> a box to move</span>
+      <span><b>drag</b> to draw</span>
+      <span><b>drag a box</b> to move</span>
       <span><b>handles</b> to resize</span>
-      <span><b>right-click</b> to delete</span>
+      <span><b>side by side</b> is a row</span>
     </div>
     <div class="blank" id="blank">
       <div class="sm">Nothing drawn yet</div>
       <div class="bg">Drag a box. Get a component.</div>
       <div class="ps">
         <button class="t bx" data-preset="landing">Landing page</button>
+        <button class="t bx" data-preset="split">Hero + image</button>
         <button class="t bx" data-preset="docs">Docs</button>
         <button class="t bx" data-preset="dash">Dashboard</button>
-        <button class="t bx" data-preset="post">Article</button>
       </div>
     </div>
   </section>
@@ -124,114 +133,101 @@
       <div class="seg" id="segDev">
         <button data-w="0" class="on">Full</button><button data-w="820">Tablet</button><button data-w="390">Phone</button>
       </div>
-      <span class="lb" style="margin-left:4px">Style</span>
-      <select id="themeSel" class="tsel">
-        <optgroup label="House">
-          <option value="">Plain</option>
-          <option value="editorial">Editorial</option>
-          <option value="brutal">Brutal</option>
-          <option value="soft">Soft</option>
-          <option value="terminal">Terminal</option>
-        </optgroup>
-        <optgroup label="Editorial · light + serif">
-          <option value="monochrome">Monochrome</option>
-          <option value="newsprint">Newsprint</option>
-          <option value="luxury">Luxury</option>
-          <option value="academia">Academia</option>
-          <option value="botanical">Botanical</option>
-          <option value="organic">Organic</option>
-        </optgroup>
-        <optgroup label="Product · light + sans">
-          <option value="saas">SaaS</option>
-          <option value="swiss-minimalist">Swiss Minimalist</option>
-          <option value="flat-design">Flat Design</option>
-          <option value="material-design">Material Design</option>
-          <option value="professional">Professional</option>
-          <option value="enterprise">Enterprise</option>
-        </optgroup>
-        <optgroup label="Expressive · light">
-          <option value="bauhaus">Bauhaus</option>
-          <option value="neo-brutalism">Neo Brutalism</option>
-          <option value="playful-geometric">Playful Geometric</option>
-          <option value="claymorphism">Claymorphism</option>
-          <option value="neumorphism">Neumorphism</option>
-          <option value="maximalism">Maximalism</option>
-          <option value="sketch">Sketch</option>
-          <option value="industrial">Industrial</option>
-          <option value="retro">Retro</option>
-        </optgroup>
-        <optgroup label="Dark">
-          <option value="modern-dark">Modern Dark</option>
-          <option value="minimal-dark">Minimal Dark</option>
-          <option value="bold-typography">Bold Typography</option>
-          <option value="kinetic">Kinetic</option>
-          <option value="web3">Web3</option>
-          <option value="art-deco">Art Deco</option>
-          <option value="vaporwave">Vaporwave</option>
-          <option value="terminal-dp">Terminal (green)</option>
-          <option value="cyberpunk">Cyberpunk</option>
-        </optgroup>
-      </select>
-    </div>
-    <div id="frame">
-      <div id="sheet">
-        <div class="void">
-          <div class="t1">The page renders here</div>
-          <div class="t2">Every box is read for position, width and proportion, then built as a real component.</div>
-        </div>
+      <div class="selwrap">
+        <select id="themeSel" aria-label="Design style">
+          <optgroup label="House">
+            <option value="">Plain</option>
+            <option value="editorial">Editorial</option>
+            <option value="brutal">Brutal</option>
+            <option value="soft">Soft</option>
+            <option value="terminal">Terminal</option>
+          </optgroup>
+          <optgroup label="Editorial · serif">
+            <option value="monochrome">Monochrome</option>
+            <option value="newsprint">Newsprint</option>
+            <option value="luxury">Luxury</option>
+            <option value="academia">Academia</option>
+            <option value="botanical">Botanical</option>
+            <option value="organic">Organic</option>
+          </optgroup>
+          <optgroup label="Product · sans">
+            <option value="saas">SaaS</option>
+            <option value="swiss-minimalist">Swiss Minimalist</option>
+            <option value="flat-design">Flat Design</option>
+            <option value="material-design">Material Design</option>
+            <option value="professional">Professional</option>
+            <option value="enterprise">Enterprise</option>
+          </optgroup>
+          <optgroup label="Expressive">
+            <option value="bauhaus">Bauhaus</option>
+            <option value="neo-brutalism">Neo Brutalism</option>
+            <option value="playful-geometric">Playful Geometric</option>
+            <option value="claymorphism">Claymorphism</option>
+            <option value="neumorphism">Neumorphism</option>
+            <option value="maximalism">Maximalism</option>
+            <option value="sketch">Sketch</option>
+            <option value="industrial">Industrial</option>
+            <option value="retro">Retro</option>
+          </optgroup>
+          <optgroup label="Dark">
+            <option value="modern-dark">Modern Dark</option>
+            <option value="minimal-dark">Minimal Dark</option>
+            <option value="bold-typography">Bold Typography</option>
+            <option value="kinetic">Kinetic</option>
+            <option value="web3">Web3</option>
+            <option value="art-deco">Art Deco</option>
+            <option value="vaporwave">Vaporwave</option>
+            <option value="terminal-dp">Terminal (green)</option>
+            <option value="cyberpunk">Cyberpunk</option>
+          </optgroup>
+        </select>
+        <svg class="chev" width="9" height="6" viewBox="0 0 9 6" fill="none"><path d="M1 1l3.5 3.5L8 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
       </div>
+      <button class="t ico" id="bFull" title="Expand preview">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M5 1H1v4M8 12h4V8M12 5V1H8M1 8v4h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
     </div>
+    <div id="frame"><div id="sheet"><div class="void">
+      <div class="t1">The page renders here</div>
+      <div class="t2">Boxes that share a row are built side by side. Boxes stacked vertically become sections.</div>
+    </div></div></div>
   </section>
 </main>
 
 <footer>
   <span>Mirage — an open source frontend builder</span>
   <span class="sp"></span>
-  <span id="ftSel">no selection</span>
-  <span>·</span>
-  <span>MIT</span>
+  <span id="ftSel">no selection</span><span>·</span><span>MIT</span>
 </footer>
 </div>
 
-<div class="modal" id="mExport">
-  <div class="mbox">
-    <div class="mh">
-      <span class="ti">Export</span>
-      <div class="seg" id="segFmt">
-        <button data-f="html" class="on">HTML + CSS</button>
-        <button data-f="react">React</button>
-        <button data-f="tw">Tailwind</button>
-        <button data-f="json">Sketch JSON</button>
-      </div>
-      <button class="x" id="xExport">×</button>
+<div class="modal" id="mExport"><div class="mbox">
+  <div class="mh">
+    <span class="ti">Export</span>
+    <div class="seg" id="segFmt">
+      <button data-f="html" class="on">HTML + CSS</button><button data-f="react">React</button>
+      <button data-f="tw">Tailwind</button><button data-f="json">Sketch JSON</button>
     </div>
-    <div class="mb"><pre id="codeOut"></pre></div>
-    <div class="mf">
-      <span class="nt" id="exNote"></span>
-      <button class="t bx" id="bCopy">Copy</button>
-      <button class="t pri" id="bDownload">Download file</button>
-    </div>
+    <button class="x" id="xExport">&times;</button>
   </div>
-</div>
+  <div class="mb"><pre id="codeOut"></pre></div>
+  <div class="mf"><span class="nt" id="exNote"></span>
+    <button class="t bx" id="bCopy">Copy</button><button class="t pri" id="bDownload">Download file</button></div>
+</div></div>
 
-<div class="modal" id="mKeys">
-  <div class="mbox" style="width:min(560px,100%)">
-    <div class="mh"><span class="ti">Shortcuts</span><button class="x" id="xKeys">×</button></div>
-    <div class="mb"><div class="keys" id="keyList"></div></div>
-  </div>
-</div>
+<div class="modal" id="mKeys"><div class="mbox sm">
+  <div class="mh"><span class="ti">Shortcuts</span><button class="x" id="xKeys">&times;</button></div>
+  <div class="mb"><div class="keys" id="keyList"></div></div>
+</div></div>
 
-<div class="modal" id="mLoad">
-  <div class="mbox" style="width:min(560px,100%)">
-    <div class="mh"><span class="ti">Load sketch</span><button class="x" id="xLoad">×</button></div>
-    <div class="mb" style="padding:16px"><textarea class="txt" id="loadBox" rows="12" placeholder="Paste sketch JSON here"></textarea></div>
-    <div class="mf"><span class="nt">Produced by Export → Sketch JSON</span><button class="t pri" id="bLoadGo">Load</button></div>
-  </div>
-</div>
+<div class="modal" id="mLoad"><div class="mbox sm">
+  <div class="mh"><span class="ti">Load sketch</span><button class="x" id="xLoad">&times;</button></div>
+  <div class="mb" style="padding:16px"><textarea class="txt" id="loadBox" rows="12" placeholder="Paste sketch JSON here"></textarea></div>
+  <div class="mf"><span class="nt">Produced by Export &rarr; Sketch JSON</span><button class="t pri" id="bLoadGo">Load</button></div>
+</div></div>
 
 <div class="toast" id="toast"></div>
 
-
-  <script src="../js/mirage.js" defer></script>
+<script src="../js/mirage.js" defer></script>
 </body>
 </html>
