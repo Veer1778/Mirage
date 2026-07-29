@@ -143,7 +143,7 @@ function paint(){
     if (!b.strokeColor) {
        b.strokeColor = `hsl(${Math.random() * 360}, 80%, 60%)`;
     }
-    ctx.strokeStyle = isSel ? red : b.strokeColor;
+    ctx.strokeStyle = isSel ? blue : b.strokeColor;
     ctx.lineWidth=isSel?2:(b.locked?1.7:1.2);
     if(b.shape==='circle'){ ctx.beginPath(); ctx.ellipse(g.x+g.w/2,g.y+g.h/2,g.w/2,g.h/2,0,0,6.283); ctx.stroke(); }
     else shaky(g.x,g.y,g.w,g.h);
