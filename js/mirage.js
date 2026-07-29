@@ -1233,40 +1233,11 @@ chipGroup($('aiMode'),AI_MODES,'m',v=>{
   Array.prototype.forEach.call($('aiMode').children,el=>el.classList.toggle('on',el.dataset.m===v));
 });
 Array.prototype.forEach.call($('aiMode').children,el=>el.classList.toggle('on',el.dataset.m==='copy'));
-$('bAI').onclick=()=>{
-  $('mAI').classList.add('on');
-  STORE.setting('geminiKey').then(k=>{ if(k){ aiKey=k; $('aiKey').value=k; } });
-};
-$('xAI').onclick=()=>$('mAI').classList.remove('on');
-$('aiKey').addEventListener('change',()=>{
-  aiKey=$('aiKey').value.trim();
-  STORE.setting('geminiKey',aiKey);
-  if(aiKey) toast('Key saved in this browser');
-});
-$('bAIRun').onclick=async()=>{
-  aiKey=$('aiKey').value.trim();
-  const brief=$('aiPrompt').value.trim();
-  if(!aiKey){ $('aiStatus').textContent='Add your Gemini API key first.'; return; }
-  if(!brief){ $('aiStatus').textContent='Describe what the page is for.'; return; }
-  STORE.setting('geminiKey',aiKey);
-  $('bAIRun').disabled=true; $('aiStatus').textContent='Thinking…';
-  try{
-    if(aiMode==='design'){ await aiDesign(brief); $('aiStatus').textContent='Design system updated.'; toast('Palette applied'); }
-    else if(aiMode==='layout'){ const n=await aiLayout(brief); $('aiStatus').textContent='Drew '+n+' boxes.'; toast('Layout drafted'); }
-    else { if(!boxes.length){ $('aiStatus').textContent='Draw a layout first, then write copy for it.'; }
-           else { const n=await aiCopy(brief); $('aiStatus').textContent='Rewrote '+n+' strings.'; toast('Copy written'); } }
-  }catch(err){ $('aiStatus').textContent=err.message||'Something went wrong.'; }
-  $('bAIRun').disabled=false;
-};
-$('bAIDesign').onclick=()=>{ $('mDesign').classList.remove('on');
-  aiMode='design';
-  Array.prototype.forEach.call($('aiMode').children,el=>el.classList.toggle('on',el.dataset.m==='design'));
-  $('bAI').click(); };
 
 const KEYS=[['Draw a box','drag'],['Move a box','drag it'],['Resize','handle'],
   ['Delete box','right-click / Del'],['Edit text','click it in the preview'],['Undo','⌘Z'],
   ['Redo','⇧⌘Z'],['Duplicate','⌘D'],['Projects','⌘P'],['Design system','⌘K'],
-  ['Tidy rows','T'],['Labels','L'],['Dark mode','D'],['Fullscreen','F'],['Export','⌘E'],['AI','⌘J']];
+  ['Tidy rows','T'],['Labels','L'],['Dark mode','D'],['Fullscreen','F'],['Export','⌘E']];
 $('keyList').innerHTML=KEYS.map(k=>'<div><dt>'+k[0]+'</dt><dd>'+k[1]+'</dd></div>').join('');
 $('bKeys').onclick=()=>$('mKeys').classList.add('on');
 $('xKeys').onclick=()=>$('mKeys').classList.remove('on');
@@ -1290,7 +1261,6 @@ document.addEventListener('keydown',e=>{
   if(m&&k==='e'){ e.preventDefault(); $('bExport').click(); return; }
   if(m&&k==='p'){ e.preventDefault(); $('bProjects').click(); return; }
   if(m&&k==='k'){ e.preventDefault(); $('bDesign').click(); return; }
-  if(m&&k==='j'){ e.preventDefault(); $('bAI').click(); return; }
   if(m) return;
   if(k==='t') $('bTidy').click();
   if(k==='l') $('bLabels').click();
@@ -1317,5 +1287,4 @@ STORE.all().then(all=>{
   if(all&&all.length){ loadProject(all[0]); toast('Reopened "'+all[0].name+'"'); }
   else { project.id=uid(); $('projName').textContent=project.name; }
 }).catch(()=>{ project.id=uid(); });
-STORE.setting('geminiKey').then(k=>{ if(k) aiKey=k; });
 })();
