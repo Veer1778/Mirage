@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Bebas+Neue&family=Caveat:wght@400;700&family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Serif+Display&family=EB+Garamond:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Kalam:wght@400;700&family=Libre+Baskerville:wght@400;700&family=Nunito:wght@400;600;700;900&family=Orbitron:wght@400;700;900&family=Oswald:wght@400;500;600;700&family=Playfair+Display:wght@400;500;700;800;900&family=Poiret+One&family=Roboto:wght@400;500;700;900&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/mirage.css">
-<link rel="stylesheet" href="../css/themes.css">
+<link rel="stylesheet" href="../css/mirage.css?v=3">
+<link rel="stylesheet" href="../css/themes.css?v=3">
 </head>
 <body>
 <div id="app">
@@ -67,13 +67,10 @@
           <div class="types" id="typeGrid"></div>
         </div>
         <div class="fld">
-          <label>Geometry</label>
-          <div class="grid2">
-            <div class="num"><span>X</span><input type="number" id="fX" min="0" step="1"></div>
-            <div class="num"><span>Y</span><input type="number" id="fY" min="0" step="1"></div>
-            <div class="num"><span>W</span><input type="number" id="fW" min="1" step="1"></div>
-            <div class="num"><span>H</span><input type="number" id="fH" min="1" step="1"></div>
-          </div>
+          <label>Size</label>
+          <div class="rng"><span class="rl">W</span><input type="range" id="fW" min="1" max="12" step="1"><span class="v" id="fWV">12</span></div>
+          <div class="rng" style="margin-top:8px"><span class="rl">H</span><input type="range" id="fH" min="1" max="24" step="1"><span class="v" id="fHV">4</span></div>
+          <p class="hint">Position is read from the sketch. Drag the box to move it.</p>
         </div>
         <div class="fld" id="fldCells" hidden>
           <label>Columns inside</label>
@@ -97,10 +94,10 @@
     </div>
 
     <div class="stats">
-      <span>boxes</span><b id="stBox">0</b>
-      <span>components</span><b id="stComp">0</b>
-      <span>rows</span><b id="stRows">0</b>
-      <span>set by hand</span><b id="stLock">0</b>
+      <div><span>boxes</span><b id="stBox">0</b></div>
+      <div><span>components</span><b id="stComp">0</b></div>
+      <div><span>rows</span><b id="stRows">0</b></div>
+      <div><span>set by hand</span><b id="stLock">0</b></div>
     </div>
   </aside>
 
@@ -228,6 +225,6 @@
 
 <div class="toast" id="toast"></div>
 
-<script src="../js/mirage.js" defer></script>
+<script src="../js/mirage.js?v=3" defer></script>
 </body>
 </html>
