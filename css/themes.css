@@ -414,3 +414,61 @@
   #sheet.th-terminal-dp .c-hero h1::after{animation:none}
   #sheet.th-cyberpunk .c-hero h1{text-shadow:none}
 }
+
+/* =====================================================================
+   Phone optimisation per style.
+   Container queries so the Phone preview genuinely reflows; these are
+   converted to @media rules on export.
+   ===================================================================== */
+@container page (max-width:520px){
+  /* editorial styles: pull the display sizes down hard */
+  #sheet.th-monochrome .c-hero h1,
+  #sheet.th-swiss-minimalist .c-hero h1,
+  #sheet.th-bold-typography .c-hero h1,
+  #sheet.th-kinetic .c-hero h1,
+  #sheet.th-retro .c-hero h1,
+  #sheet.th-sketch .c-hero h1,
+  #sheet.th-vaporwave .c-hero h1{font-size:clamp(24px,8vw,34px);max-width:none}
+
+  /* newsprint cannot hold two columns on a phone */
+  #sheet.th-newsprint .c-text p{column-count:1}
+  #sheet.th-newsprint .c-text p::first-letter{font-size:2.4em}
+  #sheet.th-newsprint .c-nav{justify-content:flex-start}
+
+  /* art deco and luxury use wide tracking that overflows small screens */
+  #sheet.th-art-deco .c-hero h1{letter-spacing:.06em;font-size:22px}
+  #sheet.th-art-deco .c-nav .lg,
+  #sheet.th-luxury .c-nav .lg{letter-spacing:.16em;font-size:12px}
+  #sheet.th-luxury .c-hero .b1{letter-spacing:.12em;padding:11px 18px}
+
+  /* soft-UI shadows get heavy at small sizes */
+  #sheet.th-neumorphism .c-card,
+  #sheet.th-claymorphism .c-card{box-shadow:0 2px 8px rgba(0,0,0,.10)}
+
+  /* offset shadows spill off the viewport */
+  #sheet.th-neo-brutalism,#sheet.th-brutal,#sheet.th-maximalism,#sheet.th-retro{--c-sh:3px 3px 0 currentColor}
+  #sheet.th-neo-brutalism .c-card,#sheet.th-maximalism .c-card{box-shadow:3px 3px 0 #0B0B0B}
+
+  /* glow effects are expensive and illegible on small text */
+  #sheet.th-cyberpunk .c-hero h1{text-shadow:1px 0 #00FFFF,-1px 0 #FF0080}
+  #sheet.th-vaporwave .c-hero h1{text-shadow:2px 0 #01CDFE}
+  #sheet.th-web3 .c-hero{background-size:cover}
+
+  /* terminal scanlines shimmer badly on dense phone pixels */
+  #sheet.th-terminal-dp .c-hero,#sheet.th-terminal-dp .c-text,
+  #sheet.th-terminal-dp .c-grid,#sheet.th-terminal-dp .c-nav{background-image:none}
+
+  /* organic and botanical asymmetric radii look broken when narrow */
+  #sheet.th-organic .c-card{border-radius:26px}
+  #sheet.th-organic .c-img{border-radius:26px}
+  #sheet.th-botanical .c-card{border-radius:4px}
+
+  /* industrial hatching is noise at this size */
+  #sheet.th-industrial .c-nav{background:#DFDCD5}
+  #sheet.th-industrial .c-card{background-image:none}
+
+  /* bauhaus decorative circle overlaps the headline */
+  #sheet.th-bauhaus .c-hero{background-image:none}
+  #sheet.th-playful-geometric .c-hero{background-image:none}
+  #sheet.th-maximalism .c-hero{background-size:24px 24px}
+}
