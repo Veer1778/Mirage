@@ -333,3 +333,62 @@ footer .sp{margin-left:auto}
   header{overflow-x:auto}
 }
 @media (prefers-reduced-motion:reduce){.cx{animation:none}}
+
+/* ===================== v0.4 additions ===================== */
+
+/* project name in the header */
+.proj{display:flex;align-items:center;gap:8px;margin-right:6px;font-family:var(--f-m);font-size:11px}
+.proj #projName{padding:5px 9px;border:1px solid transparent;outline:none;max-width:190px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;transition:.14s}
+.proj #projName:hover{border-color:var(--hair)}
+.proj #projName:focus{border-color:var(--blue);background:var(--field)}
+.proj i{font-style:normal;font-size:9.5px;color:var(--blue);min-width:30px}
+
+.hint.tip{color:var(--stone);line-height:1.6}
+.hint.tip b{color:var(--ink);font-weight:600}
+
+/* projects list */
+#projList{padding:8px}
+.prj{display:flex;align-items:center;gap:12px;padding:11px 12px;border:1px solid var(--hair);
+  margin-bottom:6px;background:var(--field);transition:.14s}
+.prj:hover{border-color:var(--stone)}
+.prj.on{border-color:var(--blue);box-shadow:inset 3px 0 0 var(--blue)}
+.prj .pi{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.prj .pi b{font-size:13px;font-weight:600;letter-spacing:-.01em;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap}
+.prj .pi span{font-family:var(--f-m);font-size:10px;color:var(--stone)}
+.prj .pa{display:flex;gap:4px;flex:none}
+.prj .pa button{font-family:var(--f-m);font-size:10px;padding:5px 9px;border:1px solid var(--hair)}
+.prj .pa button:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.prj .pa button.dg{color:var(--danger)}
+.prj .pa button.dg:hover{background:var(--danger);border-color:var(--danger);color:#fff}
+
+/* inline editable text in the preview */
+#sheet .edit{outline:none;cursor:text;border-radius:2px;
+  box-shadow:inset 0 -1px 0 rgba(127,140,155,.35);transition:box-shadow .14s,background .14s}
+#sheet .edit:hover{box-shadow:inset 0 -1px 0 currentColor;background:rgba(127,140,155,.08)}
+#sheet .edit:focus{background:rgba(239,196,74,.22);box-shadow:0 0 0 2px rgba(239,196,74,.55)}
+
+/* ---------- shapes ---------- */
+.sh-round{border-radius:14px !important}
+.sh-pill{border-radius:999px !important}
+.sh-squircle{border-radius:32px !important}
+.sh-circle{border-radius:50% !important;aspect-ratio:1/1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.sh-circle > *{max-width:76%}
+.sh-cut{border-radius:0 !important;
+  clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px)}
+
+/* ---------- button types ---------- */
+.c-btn .bgroup{display:flex;gap:9px;flex-wrap:wrap}
+.bt{font-family:inherit;font-size:13px;padding:11px 20px;cursor:pointer;
+  border-radius:var(--c-r);border:var(--c-bw) solid transparent;transition:.15s}
+.bt-primary{background:var(--c-acc);color:var(--c-bg);box-shadow:var(--c-sh)}
+.bt-secondary{background:transparent;color:var(--c-acc);border-color:var(--c-acc);
+  box-shadow:var(--c-sh)}
+.bt-ghost{background:transparent;color:var(--c-fg);border-color:transparent}
+.bt-ghost:hover{background:rgba(127,140,155,.16)}
+.bt-pill{background:var(--c-acc);color:var(--c-bg);border-radius:999px;padding:11px 24px;
+  box-shadow:var(--c-sh)}
+.bt-link{background:transparent;color:var(--c-acc);padding:4px 0;
+  text-decoration:underline;text-underline-offset:4px;border:none;box-shadow:none}
